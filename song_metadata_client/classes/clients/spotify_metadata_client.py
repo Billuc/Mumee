@@ -80,9 +80,7 @@ class SpotifyMetadataClient:
 
         return result
 
-    def search(self, song_title: str, song_artists: str) -> SongMetadata:
-        query = f"{song_title} - {song_artists}"
-
+    def search(self, query: str) -> SongMetadata:
         search_results = self._client.search(query)
 
         if search_results is None or len(search_results["tracks"]["items"]) == 0:
