@@ -1,0 +1,1 @@
+from .di import add_song_metadata_client
