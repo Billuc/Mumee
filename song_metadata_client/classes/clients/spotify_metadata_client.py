@@ -53,14 +53,14 @@ class SpotifyMetadataClient:
 
         if track_info is None:
             raise MetadataClientError(
-                f"Couldn't get metadata associated with this URL : {url}"
+                f"Couldn't get metadata associated with this URL: {url}"
             )
 
         if track_info["duration_ms"] == 0 or track_info["name"].strip() == "":
             raise MetadataClientError(f"Track no longer exists: {url}")
 
         artist_names = [artist["name"] for artist in track_info["artists"]]
-        album_info = self._client.album(track_info["album"]["id"])
+        album_info = self._client.album(track_info["album"]["id"]) or {}
 
         result = SongMetadata(
             name=track_info["name"],
@@ -99,10 +99,10 @@ class SpotifyMetadataClient:
 
     def _get_best_result(
         self, query: str, tracks_info: List[Dict[str, Any]]
-    ) -> Tuple[str, str, int]:
+    ) -> Tuple[str, str, float]:
         best_score = 0
-        best_id = None
-        best_query = None
+        best_id = ""
+        best_query = ""
         best_popularity = 0
 
         for track in tracks_info:

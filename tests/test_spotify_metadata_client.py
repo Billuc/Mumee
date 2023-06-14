@@ -10,7 +10,7 @@ def test_init_client():
     client = SpotifyMetadataClient(options)
 
 
-@my_vcr.use_cassette()
+@my_vcr.use_cassette
 def test_get_from_url():
     options = SpotifyOptions()
     client = SpotifyMetadataClient(options)
@@ -33,7 +33,7 @@ def test_error_if_spotify_not_in_url():
     try:
         client.get_from_url("https://www.youtube.com/123654")
         assert False
-    except MetadataClientError:
+    except MetadataClientError as ex:
         assert True
     except:
         assert False
@@ -52,7 +52,7 @@ def test_error_if_track_not_in_url():
         assert False
 
 
-@my_vcr.use_cassette()
+@my_vcr.use_cassette
 def test_error_if_wrong_url():
     options = SpotifyOptions()
     client = SpotifyMetadataClient(options)
@@ -62,9 +62,11 @@ def test_error_if_wrong_url():
         assert False
     except Exception as ex:
         assert True
+    except:
+        assert False
 
 
-@my_vcr.use_cassette()
+@my_vcr.use_cassette
 def test_search():
     options = SpotifyOptions()
     client = SpotifyMetadataClient(options)
@@ -77,7 +79,7 @@ def test_search():
     assert metadata.album_name == "Meteora"
 
 
-@my_vcr.use_cassette()
+@my_vcr.use_cassette
 def test_search_error_if_bad_results():
     options = SpotifyOptions()
     client = SpotifyMetadataClient(options)
@@ -87,3 +89,5 @@ def test_search_error_if_bad_results():
         assert False
     except MetadataClientError as ex:
         assert True
+    except:
+        assert False

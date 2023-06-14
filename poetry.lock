@@ -793,14 +793,14 @@ test = ["mock (==2.0.0)"]
 
 [[package]]
 name = "taipan-di"
-version = "0.0.4"
+version = "0.0.5"
 description = "Truly Amazing Inversion of control Python library Analogous to .Net's DI"
 category = "main"
 optional = false
 python-versions = ">=3.9,<4.0"
 files = [
-    {file = "taipan_di-0.0.4-py3-none-any.whl", hash = "sha256:94625f6993cdbdefe8ddcf61f3bdc9e6078dccd878bcbcaeef5ae364755c454b"},
-    {file = "taipan_di-0.0.4.tar.gz", hash = "sha256:53205d902780f63e9a1432aa3787583ed8d7d17c2638b669ab4723b9b284e4ca"},
+    {file = "taipan_di-0.0.5-py3-none-any.whl", hash = "sha256:446e400ec668ad04b2b762aa49459beb36b92ea74a1939ac2dbb334eb09b265f"},
+    {file = "taipan_di-0.0.5.tar.gz", hash = "sha256:ef3c48a02d926b17b1e49c3bc240ca2bed41eb263ce4e8e36e63cb90754361fe"},
 ]
 
 [package.dependencies]
@@ -1051,7 +1051,25 @@ files = [
 idna = ">=2.0"
 multidict = ">=4.0"
 
+[[package]]
+name = "ytmusicapi"
+version = "1.0.2"
+description = "Unofficial API for YouTube Music"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "ytmusicapi-1.0.2-py3-none-any.whl", hash = "sha256:8e3f364dbb0d4e9bbbbcac65e65c2449e7e236478ecc00e6b5bc25455e488eee"},
+    {file = "ytmusicapi-1.0.2.tar.gz", hash = "sha256:f798bfedd49738bece82aac15b2d97f04578ccb1572f347a350cb704df4d0e10"},
+]
+
+[package.dependencies]
+requests = ">=2.22"
+
+[package.extras]
+dev = ["coverage", "flake8", "pre-commit", "sphinx", "sphinx-rtd-theme", "yapf"]
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "1190e0e2387400ec26d54801495549ab72dfcfb80c1423e11f5e47ff3826fe9d"
+content-hash = "9dd02eb32b9e6213d903da6bff6a142935f29fa2f213f19677981ee26f1d9aef"
