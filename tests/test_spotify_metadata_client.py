@@ -11,11 +11,11 @@ def test_init_client():
 
 
 @my_vcr.use_cassette
-def test_get_from_url():
+def test_get_track():
     options = SpotifyOptions()
     client = SpotifyMetadataClient(options)
 
-    metadata = client.get_from_url(
+    metadata = client.get_track(
         "https://open.spotify.com/track/7AB0cUXnzuSlAnyHOqmrZr?si=5cc9c24b381446f7"
     )
 
@@ -26,12 +26,12 @@ def test_get_from_url():
     assert metadata.year == 2003
 
 
-def test_error_if_spotify_not_in_url():
+def test_get_track_error_if_spotify_not_in_url():
     options = SpotifyOptions()
     client = SpotifyMetadataClient(options)
 
     try:
-        client.get_from_url("https://www.youtube.com/123654")
+        client.get_track("https://www.youtube.com/123654")
         assert False
     except MetadataClientError as ex:
         assert True
@@ -39,12 +39,12 @@ def test_error_if_spotify_not_in_url():
         assert False
 
 
-def test_error_if_track_not_in_url():
+def test_get_track_error_if_track_not_in_url():
     options = SpotifyOptions()
     client = SpotifyMetadataClient(options)
 
     try:
-        client.get_from_url("https://open.spotify.com/album/foobar")
+        client.get_track("https://open.spotify.com/album/foobar")
         assert False
     except MetadataClientError:
         assert True
@@ -53,17 +53,69 @@ def test_error_if_track_not_in_url():
 
 
 @my_vcr.use_cassette
-def test_error_if_wrong_url():
+def test_get_track_error_if_wrong_url():
     options = SpotifyOptions()
     client = SpotifyMetadataClient(options)
 
     try:
-        client.get_from_url("https://open.spotify.com/track/foobar")
+        client.get_track("https://open.spotify.com/track/foobar")
         assert False
     except Exception as ex:
         assert True
+
+
+@my_vcr.use_cassette
+def test_get_playlist():
+    options = SpotifyOptions()
+    client = SpotifyMetadataClient(options)
+
+    metadata = client.get_playlist(
+        "https://open.spotify.com/playlist/37i9dQZF1DX8FwnYE6PRvL?si=5247b1174845492b"
+    )
+
+    assert metadata is not None
+    assert metadata.name == "Rock Party"
+    assert metadata.description == "The ultimate rock party playlist!"
+    assert metadata.author == "Spotify"
+    assert any(track.name == "Dance, Dance" for track in metadata.tracks)
+
+
+def test_get_playlist_error_if_spotify_not_in_url():
+    options = SpotifyOptions()
+    client = SpotifyMetadataClient(options)
+
+    try:
+        client.get_playlist("https://www.youtube.com/123654")
+        assert False
+    except MetadataClientError as ex:
+        assert True
     except:
         assert False
+
+
+def test_get_playlist_error_if_playlist_not_in_url():
+    options = SpotifyOptions()
+    client = SpotifyMetadataClient(options)
+
+    try:
+        client.get_playlist("https://open.spotify.com/album/foobar")
+        assert False
+    except MetadataClientError:
+        assert True
+    except:
+        assert False
+
+
+@my_vcr.use_cassette
+def test_get_playlist_error_if_wrong_url():
+    options = SpotifyOptions()
+    client = SpotifyMetadataClient(options)
+
+    try:
+        client.get_playlist("https://open.spotify.com/playlist/foobar")
+        assert False
+    except Exception as ex:
+        assert True
 
 
 @my_vcr.use_cassette
@@ -85,7 +137,7 @@ def test_search_error_if_bad_results():
     client = SpotifyMetadataClient(options)
 
     try:
-        client.search("foo bar baz")
+        metadata = client.search("foo bar baz azerazrqrsrtxv")
         assert False
     except MetadataClientError as ex:
         assert True

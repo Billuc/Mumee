@@ -9,7 +9,7 @@ from spotipy import (
 from rapidfuzz import fuzz
 from slugify import slugify
 
-from song_metadata_client.classes import SongMetadata, SpotifyOptions
+from song_metadata_client.classes import SongMetadata, SpotifyOptions, PlaylistMetadata
 from song_metadata_client.errors import MetadataClientError
 
 
@@ -45,7 +45,7 @@ class SpotifyMetadataClient:
             status_forcelist=(429, 500, 502, 503, 504, 404),
         )
 
-    def get_from_url(self, url: str) -> SongMetadata:
+    def get_track(self, url: str) -> SongMetadata:
         if "open.spotify.com" not in url or "track" not in url:
             raise MetadataClientError(f"Invalid Spotify track URL: {url}")
 
@@ -59,6 +59,9 @@ class SpotifyMetadataClient:
         if track_info["duration_ms"] == 0 or track_info["name"].strip() == "":
             raise MetadataClientError(f"Track no longer exists: {url}")
 
+        return self._to_song_metadata(track_info)
+
+    def _to_song_metadata(self, track_info: Dict[str, Any]) -> SongMetadata:
         artist_names = [artist["name"] for artist in track_info["artists"]]
         album_info = self._client.album(track_info["album"]["id"]) or {}
 
@@ -77,7 +80,25 @@ class SpotifyMetadataClient:
             date=album_info["release_date"],
             year=int(album_info["release_date"][:4]),
         )
+        return result
 
+    def get_playlist(self, url: str) -> PlaylistMetadata:
+        if "open.spotify.com" not in url or "playlist" not in url:
+            raise MetadataClientError(f"Invalid Spotify playlist URL: {url}")
+
+        track_info = self._client.playlist(url)
+
+        if track_info is None:
+            raise MetadataClientError(
+                f"Couldn't get metadata associated with this URL: {url}"
+            )
+
+        result = PlaylistMetadata(
+            name=track_info["name"],
+            description=track_info["description"],
+            author=track_info["owner"]["display_name"],
+            tracks=[self._to_song_metadata(track["track"]) for track in track_info["tracks"]["items"]],
+        )
         return result
 
     def search(self, query: str) -> SongMetadata:
@@ -95,7 +116,7 @@ class SpotifyMetadataClient:
             )
 
         song_url = "http://open.spotify.com/track/" + best_result[0]
-        return self.get_from_url(song_url)
+        return self.get_track(song_url)
 
     def _get_best_result(
         self, query: str, tracks_info: List[Dict[str, Any]]

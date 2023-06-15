@@ -3,7 +3,7 @@ from ytmusicapi import YTMusic
 from rapidfuzz import fuzz
 from slugify import slugify
 
-from song_metadata_client.classes import SongMetadata
+from song_metadata_client.classes import SongMetadata, PlaylistMetadata
 from song_metadata_client.errors import MetadataClientError
 
 
@@ -11,12 +11,12 @@ class YTMusicMetadataClient:
     def __init__(self) -> None:
         self._client = YTMusic()
 
-    def get_from_url(self, url: str) -> SongMetadata:
+    def get_track(self, url: str) -> SongMetadata:
         if "music.youtube.com" not in url or "watch?v" not in url:
             raise MetadataClientError(f"Invalid Youtube Music track URL: {url}")
 
         start_index = url.find("?v=") + len("?v=")
-        end_index = url.find("&", start_index)
+        end_index = url.find("&", start_index) if url.find("&", start_index) >= 0 else None
         track_info = self._client.get_song(url[start_index:end_index])
 
         if not track_info or track_info["playabilityStatus"]["status"] == "ERROR":
@@ -27,6 +27,32 @@ class YTMusicMetadataClient:
         return self.search(
             f"{track_info['videoDetails']['title']} - {track_info['videoDetails']['author']}"
         )
+
+    def get_playlist(self, url: str) -> PlaylistMetadata:
+        if "music.youtube.com" not in url or "playlist?list" not in url:
+            raise MetadataClientError(f"Invalid Youtube Music playlist URL: {url}")
+
+        start_index = url.find("?list=") + len("?list=")
+        end_index = url.find("&", start_index) if url.find("&", start_index) >= 0 else None
+        playlist_info = self._client.get_playlist(url[start_index:end_index], None)  # type: ignore
+
+        if not playlist_info:
+            raise MetadataClientError(
+                f"Couldn't get metadata associated with this URL: {url}"
+            )
+
+        result = PlaylistMetadata(
+            name=playlist_info["title"],
+            description=playlist_info["description"],
+            author=playlist_info["author"]["name"],
+            tracks=[
+                self.search(
+                    f"{track['title']} - {', '.join([artist['name'] for artist in track['artists']])}"
+                )
+                for track in playlist_info["tracks"]
+            ],
+        )
+        return result
 
     def search(self, query: str) -> SongMetadata:
         search_results = self._client.search(query, "songs")
@@ -56,18 +82,20 @@ class YTMusicMetadataClient:
             album_artist=album_info["artists"][0]["name"]
             if album_info is not None
             else None,
-            disc_number=0,
-            disc_count=0,
+            disc_number=None,
+            disc_count=None,
             track_number=[
                 idx
                 for idx, track in enumerate(album_info["tracks"])
                 if fuzz.ratio(track["title"], track_info["title"]) > 80
-            ][0],
-            track_count=album_info["trackCount"],
+            ][0]
+            if album_info is not None
+            else None,
+            track_count=album_info["trackCount"] if album_info is not None else None,
             genres=[],
             duration=track_info["duration_seconds"],
             date=None,
-            year=int(album_info["year"]),
+            year=int(album_info["year"]) if album_info is not None else None,
         )
 
         return result
@@ -98,4 +126,4 @@ class YTMusicMetadataClient:
                 best_query = track_query
                 has_album = track_has_album
 
-        return best_result, best_query, best_score
+        return best_result or {}, best_query, best_score

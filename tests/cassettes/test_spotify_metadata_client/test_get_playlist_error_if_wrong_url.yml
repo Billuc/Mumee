@@ -1,0 +1,295 @@
+interactions:
+- request:
+    body: grant_type=client_credentials
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic YWU2ODEzZmIwMzhlNDM4Yzg4Yzk2MzIyMDg4NTVmNDc6YWMwODA0ZmFkZGNiNDE0NWFkNjFmMzkyZDg3ZTI3MmM=
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '29'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - python-requests/2.31.0
+    method: POST
+    uri: https://accounts.spotify.com/api/token
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAACAxzOuw6CMABA0X/pLAkpSNSNVyoUQQgKTgRKJQ0KpAWtGP9ddL3LPW9QEkKFKMa+
+        pR3YASu2b12ClRl2Lrs4sWbMJOduy6t17wd+TasJ1X074rtIZezpbQPxHmbPsw/1zC7hSRKGiJc4
+        mWlYU350yRWbGtpGZqgHcHRCzy9l2lSNgjZ29DhgKMAK/O/F+Broj0BLTvlSqRwYp6JgC0wzVPXz
+        BQAA//8DAKvyCNWuAAAA
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - HTTP/2 edgeproxy, 1.1 google
+      content-encoding:
+      - gzip
+      content-type:
+      - application/json
+      date:
+      - Thu, 15 Jun 2023 15:48:07 GMT
+      server:
+      - envoy
+      set-cookie:
+      - __Host-device_id=AQCZe4qZDqeSjPBpc_qiY5J4yU3M6mf3CbnfmYQ54j0EMN8InqBgPTQTqM-YxACnQAFBwcsPmn3pXXIV_2m6LJUw62Snacam2zs;Version=1;Path=/;Max-Age=2147483647;Secure;HttpOnly;SameSite=Lax
+      - sp_tr=false;Version=1;Domain=accounts.spotify.com;Path=/;Secure;SameSite=Lax
+      sp-trace-id:
+      - d8b21ec6b2b7eeba
+      strict-transport-security:
+      - max-age=31536000
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-envoy-upstream-service-time:
+      - '11'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer BQClnRK-z2nEiYDQ36zcXrEkrb5oJLJdebuGdoktKmsTxQI4kg2KH2WwVJ24WCa2UxciGcIRDWA6BuXPEcfKA3G9OAN4L2tDNIJaxTgbg-G8COvMK2s
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.31.0
+    method: GET
+    uri: https://api.spotify.com/v1/playlists/foobar?additional_types=track
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAKrmUlBQSi0qyi9SUrBSqAbygPziksSS0mKQgImBiQ5ELDe1uDgxPRUkqOSZV5aY
+        k5miUJCTWJmTWVyi4JmiBFRVy1ULAAAA//8DAB5rE1xPAAAA
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - HTTP/2 edgeproxy, 1.1 google
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-headers:
+      - Accept, App-Platform, Authorization, Content-Type, Origin, Retry-After, Spotify-App-Version,
+        X-Cloud-Trace-Context, client-token, content-access-token
+      access-control-allow-methods:
+      - GET, POST, OPTIONS, PUT, DELETE, PATCH
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '604800'
+      cache-control:
+      - private, max-age=0
+      content-encoding:
+      - gzip
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 15 Jun 2023 15:48:07 GMT
+      server:
+      - envoy
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-robots-tag:
+      - noindex, nofollow
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer BQClnRK-z2nEiYDQ36zcXrEkrb5oJLJdebuGdoktKmsTxQI4kg2KH2WwVJ24WCa2UxciGcIRDWA6BuXPEcfKA3G9OAN4L2tDNIJaxTgbg-G8COvMK2s
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.31.0
+    method: GET
+    uri: https://api.spotify.com/v1/playlists/foobar?additional_types=track
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAKrmUlBQSi0qyi9SUrBSqAbygPziksSS0mKQgImBiQ5ELDe1uDgxPRUkqOSZV5aY
+        k5miUJCTWJmTWVyi4JmiBFRVy1ULAAAA//8DAB5rE1xPAAAA
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - HTTP/2 edgeproxy, 1.1 google
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-headers:
+      - Accept, App-Platform, Authorization, Content-Type, Origin, Retry-After, Spotify-App-Version,
+        X-Cloud-Trace-Context, client-token, content-access-token
+      access-control-allow-methods:
+      - GET, POST, OPTIONS, PUT, DELETE, PATCH
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '604800'
+      cache-control:
+      - private, max-age=0
+      content-encoding:
+      - gzip
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 15 Jun 2023 15:48:07 GMT
+      server:
+      - envoy
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-robots-tag:
+      - noindex, nofollow
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer BQClnRK-z2nEiYDQ36zcXrEkrb5oJLJdebuGdoktKmsTxQI4kg2KH2WwVJ24WCa2UxciGcIRDWA6BuXPEcfKA3G9OAN4L2tDNIJaxTgbg-G8COvMK2s
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.31.0
+    method: GET
+    uri: https://api.spotify.com/v1/playlists/foobar?additional_types=track
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAKrmUlBQSi0qyi9SUrBSqAbygPziksSS0mKQgImBiQ5ELDe1uDgxPRUkqOSZV5aY
+        k5miUJCTWJmTWVyi4JmiBFRVy1ULAAAA//8DAB5rE1xPAAAA
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - HTTP/2 edgeproxy, 1.1 google
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-headers:
+      - Accept, App-Platform, Authorization, Content-Type, Origin, Retry-After, Spotify-App-Version,
+        X-Cloud-Trace-Context, client-token, content-access-token
+      access-control-allow-methods:
+      - GET, POST, OPTIONS, PUT, DELETE, PATCH
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '604800'
+      cache-control:
+      - private, max-age=0
+      content-encoding:
+      - gzip
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 15 Jun 2023 15:48:08 GMT
+      server:
+      - envoy
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-robots-tag:
+      - noindex, nofollow
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer BQClnRK-z2nEiYDQ36zcXrEkrb5oJLJdebuGdoktKmsTxQI4kg2KH2WwVJ24WCa2UxciGcIRDWA6BuXPEcfKA3G9OAN4L2tDNIJaxTgbg-G8COvMK2s
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.31.0
+    method: GET
+    uri: https://api.spotify.com/v1/playlists/foobar?additional_types=track
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAKrmUlBQSi0qyi9SUrBSqAbygPziksSS0mKQgImBiQ5ELDe1uDgxPRUkqOSZV5aY
+        k5miUJCTWJmTWVyi4JmiBFRVy1ULAAAA//8DAB5rE1xPAAAA
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - HTTP/2 edgeproxy, 1.1 google
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-headers:
+      - Accept, App-Platform, Authorization, Content-Type, Origin, Retry-After, Spotify-App-Version,
+        X-Cloud-Trace-Context, client-token, content-access-token
+      access-control-allow-methods:
+      - GET, POST, OPTIONS, PUT, DELETE, PATCH
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '604800'
+      cache-control:
+      - private, max-age=0
+      content-encoding:
+      - gzip
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 15 Jun 2023 15:48:09 GMT
+      server:
+      - envoy
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-robots-tag:
+      - noindex, nofollow
+    status:
+      code: 404
+      message: Not Found
+version: 1

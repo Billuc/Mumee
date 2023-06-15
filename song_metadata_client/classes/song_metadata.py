@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from typing import List
+from typing import List, Optional
+
 
 @dataclass
 class SongMetadata:
@@ -7,13 +8,12 @@ class SongMetadata:
     artists: List[str]
     artist: str
     genres: List[str]
-    disc_number: int
-    disc_count: int
-    album_name: str
-    album_artist: str
+    disc_number: Optional[int]
+    disc_count: Optional[int]
+    album_name: Optional[str]
+    album_artist: Optional[str]
     duration: int
-    year: int
-    date: str
-    track_number: int
-    track_count: int
-    
+    year: Optional[int]
+    date: Optional[str]
+    track_number: Optional[int]
+    track_count: Optional[int]
