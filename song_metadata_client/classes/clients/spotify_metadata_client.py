@@ -12,6 +12,8 @@ from slugify import slugify
 from song_metadata_client.classes import SongMetadata, SpotifyOptions, PlaylistMetadata
 from song_metadata_client.errors import MetadataClientError
 
+__all__ = ["SpotifyMetadataClient"]
+
 
 class SpotifyMetadataClient:
     def __init__(self, options: SpotifyOptions) -> None:
@@ -97,7 +99,10 @@ class SpotifyMetadataClient:
             name=track_info["name"],
             description=track_info["description"],
             author=track_info["owner"]["display_name"],
-            tracks=[self._to_song_metadata(track["track"]) for track in track_info["tracks"]["items"]],
+            tracks=[
+                self._to_song_metadata(track["track"])
+                for track in track_info["tracks"]["items"]
+            ],
         )
         return result
 

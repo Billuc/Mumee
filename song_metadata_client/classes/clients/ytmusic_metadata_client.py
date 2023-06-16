@@ -6,6 +6,8 @@ from slugify import slugify
 from song_metadata_client.classes import SongMetadata, PlaylistMetadata
 from song_metadata_client.errors import MetadataClientError
 
+__all__ = ["YTMusicMetadataClient"]
+
 
 class YTMusicMetadataClient:
     def __init__(self) -> None:

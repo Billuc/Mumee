@@ -7,6 +7,8 @@ from song_metadata_client.classes import (
     PlaylistMetadata,
 )
 
+__all__ = ["SpotifySearchHandler"]
+
 
 class SpotifySearchHandler(BaseMetadataClient):
     def __init__(self, client: SpotifyMetadataClient) -> None:

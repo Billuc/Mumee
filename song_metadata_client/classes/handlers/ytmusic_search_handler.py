@@ -7,6 +7,8 @@ from song_metadata_client.classes import (
     PlaylistMetadata,
 )
 
+__all__ = ["YTMusicSearchHandler"]
+
 
 class YTMusicSearchHandler(BaseMetadataClient):
     def __init__(self, client: YTMusicMetadataClient) -> None:

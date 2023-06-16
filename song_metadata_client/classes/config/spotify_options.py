@@ -1,6 +1,9 @@
 from dataclasses import dataclass
 from typing import Optional
 
+__all__ = ["SpotifyOptions"]
+
+
 @dataclass
 class SpotifyOptions:
     use_auth: bool = False
