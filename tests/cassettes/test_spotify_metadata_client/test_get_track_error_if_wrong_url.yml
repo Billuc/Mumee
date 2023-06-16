@@ -1,0 +1,118 @@
+interactions:
+- request:
+    body: grant_type=client_credentials
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic YWU2ODEzZmIwMzhlNDM4Yzg4Yzk2MzIyMDg4NTVmNDc6YWMwODA0ZmFkZGNiNDE0NWFkNjFmMzkyZDg3ZTI3MmM=
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '29'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - python-requests/2.31.0
+    method: POST
+    uri: https://accounts.spotify.com/api/token
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAACAxzOSQ6CMABA0bt0LQnQMMSdjCZAwlxZkQYKAgZLmTXeXXT7N/+9AS4KMo759OxI
+        D85AC/Q5v+DNEyQFGc6ic9ZLvMUO8udSFzsDC9nQe0NSydwdBmtba7vU+mbtZkmFqMoeA5zjai1K
+        2mZKFlfMnqIoZWwN1UWtoTXbxDWvMFWUoDZD9NrTDpzA/55POyU/AsGMsKOSjTaMjHlzwKDM858v
+        AAAA//8DAMuaeMKuAAAA
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - HTTP/2 edgeproxy, 1.1 google
+      content-encoding:
+      - gzip
+      content-type:
+      - application/json
+      date:
+      - Thu, 15 Jun 2023 15:47:57 GMT
+      server:
+      - envoy
+      set-cookie:
+      - __Host-device_id=AQCh6kQhuH7zVgAH-KyZUXphuPQyWf3NJfHhqr8gjCHX38huite-Oa6sgoJgd-llo10rTH0F4gePqOT4EjEVnFNPxDp-xNwLwDY;Version=1;Path=/;Max-Age=2147483647;Secure;HttpOnly;SameSite=Lax
+      - sp_tr=false;Version=1;Domain=accounts.spotify.com;Path=/;Secure;SameSite=Lax
+      sp-trace-id:
+      - 97dcbd60bfe2fcc0
+      strict-transport-security:
+      - max-age=31536000
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-envoy-upstream-service-time:
+      - '15'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Bearer BQCu_AaxM157WDKvC-Fz2XTKWPudC2kDa1YqnMqUf6-h3QwjgBy5jPEgLYUfWp8rlq3uTfwcdpjY7YTfrGtSSVrrwR8v8g3FuGeLEH3V77QgERWzyVk
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.31.0
+    method: GET
+    uri: https://api.spotify.com/v1/tracks/foobar
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAKrmUlBQSi0qyi9SUrBSqAbygPziksSS0mKQgImBgQ5ELDe1uDgxPRUkqJSZV5aY
+        k5mikJmiBJSs5aoFAAAA//8DANeK8oBGAAAA
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - HTTP/2 edgeproxy, 1.1 google
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-headers:
+      - Accept, App-Platform, Authorization, Content-Type, Origin, Retry-After, Spotify-App-Version,
+        X-Cloud-Trace-Context, client-token, content-access-token
+      access-control-allow-methods:
+      - GET, POST, OPTIONS, PUT, DELETE, PATCH
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '604800'
+      cache-control:
+      - private, max-age=0
+      content-encoding:
+      - gzip
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 15 Jun 2023 15:47:56 GMT
+      server:
+      - envoy
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-robots-tag:
+      - noindex, nofollow
+    status:
+      code: 400
+      message: Bad Request
+version: 1
