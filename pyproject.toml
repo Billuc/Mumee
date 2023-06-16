@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 packages = [{include = "song_metadata_client"}]
 
-keywords = ["metadata", "python", "song metadata", "spotify", "youtube", "youtube music"]
+keywords = ["metadata", "python", "song metadata", "spotify", "youtube", "youtube music", "music", "song"]
 
 homepage = "https://github.com/Billuc/song-metadata-client"
 repository = "https://github.com/Billuc/song-metadata-client"
