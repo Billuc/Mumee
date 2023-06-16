@@ -10,6 +10,7 @@ from song_metadata_client.classes import (
 
 class SpotifyTrackHandler(BaseMetadataClient):
     def __init__(self, client: SpotifyMetadataClient) -> None:
+        super().__init__()
         self._client = client
 
     def _handle(

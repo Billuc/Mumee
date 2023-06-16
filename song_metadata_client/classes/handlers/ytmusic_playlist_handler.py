@@ -10,6 +10,7 @@ from song_metadata_client.classes import (
 
 class YTMusicPlaylistHandler(BaseMetadataClient):
     def __init__(self, client: YTMusicMetadataClient) -> None:
+        super().__init__()
         self._client = client
 
     def _handle(
