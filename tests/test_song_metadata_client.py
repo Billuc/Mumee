@@ -80,9 +80,13 @@ def test_search():
 
 
 @my_vcr.use_cassette
-def test_search_returns_none_if_bad_request():
+def test_search_raise_exception_if_bad_request():
     client = SongMetadataClient()
 
-    metadata = client.search("foo bar baz azerazrqrsrtxv")
-
-    assert metadata is None
+    try:
+        metadata = client.search("foo bar baz azerazrqrsrtxv")
+        assert False
+    except MetadataClientError as ex:
+        assert True
+    except:
+        assert False

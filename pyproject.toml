@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "song-metadata-client"
-version = "0.0.1"
+version = "0.0.2"
 description = "A generic client to fetch metadata for any song"
 authors = ["Billuc <billuc@hotmail.fr>"]
 license = "MIT"
@@ -33,7 +33,7 @@ spotipy = "^2.23.0"
 rapidfuzz = "^3.1.1"
 python-slugify = "^8.0.1"
 ytmusicapi = "^1.0.2"
-taipan-di = "^0.0.5"
+taipan-di = "0.0.7"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.3.2"
