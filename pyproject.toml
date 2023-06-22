@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "song-metadata-client"
-version = "0.0.1"
+version = "0.0.2"
 description = "A generic client to fetch metadata for any song"
 authors = ["Billuc <billuc@hotmail.fr>"]
 license = "MIT"
