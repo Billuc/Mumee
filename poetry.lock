@@ -793,14 +793,14 @@ test = ["mock (==2.0.0)"]
 
 [[package]]
 name = "taipan-di"
-version = "0.0.5"
+version = "0.0.7"
 description = "Truly Amazing Inversion of control Python library Analogous to .Net's DI"
 category = "main"
 optional = false
 python-versions = ">=3.9,<4.0"
 files = [
-    {file = "taipan_di-0.0.5-py3-none-any.whl", hash = "sha256:446e400ec668ad04b2b762aa49459beb36b92ea74a1939ac2dbb334eb09b265f"},
-    {file = "taipan_di-0.0.5.tar.gz", hash = "sha256:ef3c48a02d926b17b1e49c3bc240ca2bed41eb263ce4e8e36e63cb90754361fe"},
+    {file = "taipan_di-0.0.7-py3-none-any.whl", hash = "sha256:06b715d9c936cb5a9ca22a197d7bb1302afb7d8aed4f9e0672904be04fa9eadd"},
+    {file = "taipan_di-0.0.7.tar.gz", hash = "sha256:0903eeae6983cd2aab046f13fa7074f8478469614ca04beef89929e6d1ec165a"},
 ]
 
 [package.dependencies]
@@ -1072,4 +1072,4 @@ dev = ["coverage", "flake8", "pre-commit", "sphinx", "sphinx-rtd-theme", "yapf"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "9dd02eb32b9e6213d903da6bff6a142935f29fa2f213f19677981ee26f1d9aef"
+content-hash = "925af232697abdedc30fbbac412b8d832db87ac1b5f2b8f334be8deb96adc0e3"
