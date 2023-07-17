@@ -1,17 +1,17 @@
 from taipan_di import ServiceCollection
 
-from song_metadata_client.classes import (
+from mumee.classes import (
     SpotifyOptions,
     SpotifyMetadataClient,
     YTMusicMetadataClient,
 )
-from song_metadata_client.classes.handlers import *
-from song_metadata_client.interfaces import BaseMetadataClient
+from mumee.classes.handlers import *
+from mumee.interfaces import BaseMetadataClient
 
-__all__ = ["add_song_metadata_client"]
+__all__ = ["add_mumee"]
 
 
-def add_song_metadata_client(services: ServiceCollection) -> ServiceCollection:
+def add_mumee(services: ServiceCollection) -> ServiceCollection:
     services.register(SpotifyOptions).as_singleton().with_self()
 
     services.register(SpotifyMetadataClient).as_factory().with_self()

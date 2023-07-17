@@ -5,13 +5,13 @@ from .classes import (
     SpotifyMetadataClient,
     YTMusicMetadataClient,
 )
-from .di import add_song_metadata_client
+from .di import add_mumee
 from .errors import MetadataClientError
 from .interfaces import BaseMetadataClient
 from .main import SongMetadataClient
 
 __all__ = [
-    "add_song_metadata_client",
+    "add_mumee",
     "SongMetadataClient",
     "BaseMetadataClient",
     "MetadataClientError",

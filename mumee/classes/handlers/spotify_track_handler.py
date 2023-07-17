@@ -1,7 +1,7 @@
 from typing import Callable, Union
 
-from song_metadata_client.interfaces import BaseMetadataClient
-from song_metadata_client.classes import (
+from mumee.interfaces import BaseMetadataClient
+from mumee.classes import (
     SpotifyMetadataClient,
     SongMetadata,
     PlaylistMetadata,

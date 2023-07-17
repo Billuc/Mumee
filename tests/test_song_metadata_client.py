@@ -1,5 +1,4 @@
-from song_metadata_client import SongMetadataClient
-from song_metadata_client.errors import MetadataClientError
+from mumee import SongMetadataClient, MetadataClientError, SongMetadata, PlaylistMetadata
 from tests.my_vcr import generate_vcr
 
 my_vcr = generate_vcr("test_song_metadata_client")
@@ -18,6 +17,7 @@ def test_search_spotify_track():
     )
 
     assert metadata is not None
+    assert isinstance(metadata, SongMetadata)
     assert metadata.artist == "Linkin Park"
     assert metadata.name == "Faint"
     assert metadata.album_name == "Meteora (Bonus Edition)"
@@ -33,6 +33,7 @@ def test_search_spotify_playlist():
     )
 
     assert metadata is not None
+    assert isinstance(metadata, PlaylistMetadata)
     assert metadata.name == "Rock Party"
     assert metadata.description == "The ultimate rock party playlist!"
     assert metadata.author == "Spotify"
@@ -46,6 +47,7 @@ def test_search_ytmusic_track():
     metadata = client.search("https://music.youtube.com/watch?v=c6i88Y7gDl4&feature=share")
 
     assert metadata is not None
+    assert isinstance(metadata, SongMetadata)
     assert metadata.artist == "I Prevail"
     assert metadata.name == "Deep End"
     assert metadata.album_name == "TRUE POWER"
@@ -61,6 +63,7 @@ def test_search_ytmusic_playlist():
     )
 
     assert metadata is not None
+    assert isinstance(metadata, PlaylistMetadata)
     assert metadata.name == "'00s Rock"
     assert metadata.author == "YouTube Music"
     assert metadata.description.startswith("New millennium rock and roll!")
@@ -74,6 +77,7 @@ def test_search():
     metadata = client.search("Faint - Linkin Park")
 
     assert metadata is not None
+    assert isinstance(metadata, SongMetadata)
     assert metadata.artist == "Linkin Park"
     assert metadata.name == "Faint"
     assert metadata.album_name == "Meteora"

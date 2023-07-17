@@ -1,5 +1,5 @@
-from song_metadata_client.classes import SpotifyOptions, SpotifyMetadataClient
-from song_metadata_client.errors import MetadataClientError
+from mumee.classes import SpotifyOptions, SpotifyMetadataClient
+from mumee.errors import MetadataClientError
 from tests.my_vcr import generate_vcr
 
 my_vcr = generate_vcr("test_spotify_metadata_client")

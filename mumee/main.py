@@ -1,16 +1,16 @@
 from typing import Optional, Union
 from taipan_di import ServiceCollection
 
-from song_metadata_client.classes import SongMetadata, PlaylistMetadata, SpotifyOptions
-from song_metadata_client.di import add_song_metadata_client
-from song_metadata_client.interfaces import BaseMetadataClient
-from song_metadata_client.errors import MetadataClientError
+from mumee.classes import SongMetadata, PlaylistMetadata, SpotifyOptions
+from mumee.di import add_mumee
+from mumee.interfaces import BaseMetadataClient
+from mumee.errors import MetadataClientError
 
 
 class SongMetadataClient:
     def __init__(self, spotify_options: Optional[SpotifyOptions] = None):
         services = ServiceCollection()
-        add_song_metadata_client(services)
+        add_mumee(services)
 
         if spotify_options is not None:
             services.register(SpotifyOptions).as_singleton().with_instance(spotify_options)

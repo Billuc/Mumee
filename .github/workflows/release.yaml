@@ -29,8 +29,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: song_metadata_client-${{ steps.tag.outputs.tag }}.tar.gz
-          path: dist/song_metadata_client-${{ steps.tag.outputs.tag }}.tar.gz
+          name: mumee-${{ steps.tag.outputs.tag }}.tar.gz
+          path: dist/mumee-${{ steps.tag.outputs.tag }}.tar.gz
       - name: Publish release
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}

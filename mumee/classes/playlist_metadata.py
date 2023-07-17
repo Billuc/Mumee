@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List
 
-from song_metadata_client.classes import SongMetadata
+from mumee.classes import SongMetadata
 
 __all__ = ["PlaylistMetadata"]
 

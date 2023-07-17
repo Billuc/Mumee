@@ -3,8 +3,8 @@ from ytmusicapi import YTMusic
 from rapidfuzz import fuzz
 from slugify import slugify
 
-from song_metadata_client.classes import SongMetadata, PlaylistMetadata
-from song_metadata_client.errors import MetadataClientError
+from mumee.classes import SongMetadata, PlaylistMetadata
+from mumee.errors import MetadataClientError
 
 __all__ = ["YTMusicMetadataClient"]
 
