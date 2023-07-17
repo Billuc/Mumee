@@ -40,7 +40,7 @@ This method fetches the metadata corresponding to the request you give it, wheth
 **Example :**
 
 ```python
-from song_metadata_client import SongMetadataClient
+from mumee import SongMetadataClient
 
 client = SongMetadataClient()
 result = client.search("in the end - linkin park")
@@ -50,18 +50,18 @@ title = result.title # In The End
 
 ### Using DI
 
-The library also exposes a `BaseMetadataClient` interface and a `add_song_metadata_client` function for [Taipan-DI](https://github.com/Billuc/Taipan-DI).
+The library also exposes a `BaseMetadataClient` interface and a `add_mumee` function for [Taipan-DI](https://github.com/Billuc/Taipan-DI).
 
 In this function, the clients are registered as a Pipeline. All you need to do is to resolve the pipeline and execute it.
 
 **Example :**
 
 ```python
-from song_metadata_client import BaseMetadataClient, add_song_metadata_client
+from mumee import BaseMetadataClient, add_mumee
 from taipan_di import DependencyCollection
 
 services = DependencyCollection()
-add_song_metadata_client(services)
+add_mumee(services)
 
 provider = services.build()
 client = provider.resolve(BaseMetadataClient)

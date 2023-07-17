@@ -9,8 +9,8 @@ from spotipy import (
 from rapidfuzz import fuzz
 from slugify import slugify
 
-from song_metadata_client.classes import SongMetadata, SpotifyOptions, PlaylistMetadata
-from song_metadata_client.errors import MetadataClientError
+from mumee.classes import SongMetadata, SpotifyOptions, PlaylistMetadata
+from mumee.errors import MetadataClientError
 
 __all__ = ["SpotifyMetadataClient"]
 

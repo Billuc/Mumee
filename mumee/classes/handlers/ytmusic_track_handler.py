@@ -1,16 +1,16 @@
 from typing import Callable, Union
 
-from song_metadata_client.interfaces import BaseMetadataClient
-from song_metadata_client.classes import (
+from mumee.interfaces import BaseMetadataClient
+from mumee.classes import (
     YTMusicMetadataClient,
     SongMetadata,
     PlaylistMetadata,
 )
 
-__all__ = ["YTMusicSearchHandler"]
+__all__ = ["YTMusicTrackHandler"]
 
 
-class YTMusicSearchHandler(BaseMetadataClient):
+class YTMusicTrackHandler(BaseMetadataClient):
     def __init__(self, client: YTMusicMetadataClient) -> None:
         super().__init__()
         self._client = client
@@ -18,7 +18,7 @@ class YTMusicSearchHandler(BaseMetadataClient):
     def _handle(
         self, request: str, next: Callable[[str], Union[SongMetadata, PlaylistMetadata]]
     ) -> Union[SongMetadata, PlaylistMetadata]:
-        try:
-            return self._client.search(request)
-        except:
+        if "music.youtube.com" not in request or "watch?v" not in request:
             return next(request)
+
+        return self._client.get_track(request)
