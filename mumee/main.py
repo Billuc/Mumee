@@ -21,6 +21,6 @@ class SongMetadataClient:
         result = self._client.exec(url_or_query)
 
         if result is None:
-            raise MetadataClientError("No result")
+            raise MetadataClientError(f"No result for query {url_or_query}")
 
         return result

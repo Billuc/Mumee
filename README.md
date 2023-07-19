@@ -1,6 +1,7 @@
-# Song Metadata Client
+# Mumee
 
-**Get metadata about your favorite songs and playlists !**
+**Get metadata about your favorite songs and playlists !**  
+Mumee stands for *MUsic MEtadata Explorer*
 
 ## Features
 
@@ -81,6 +82,6 @@ If there is something you want to see added or if something does not work as you
 
 Here is a list of features I have in mind and will be working on :
 
-- Interface for SongMetadataClient and only exposed interface for DI ?
 - Support for Amazon Music
 - More metadata in the SongMetadata class
+- Allow return of multiple results

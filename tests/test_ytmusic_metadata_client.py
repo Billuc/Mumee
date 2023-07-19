@@ -18,9 +18,26 @@ def test_get_track():
     )
 
     assert metadata is not None
-    assert metadata.artist == "Currents"
-    assert metadata.name == "Gone Astray"
+    assert metadata.album_artist == "Currents"
     assert metadata.album_name == "The Death We Seek"
+    assert metadata.artist == "Currents"
+    assert metadata.artists == ["Currents"]
+    assert (
+        metadata.cover_url
+        == "https://lh3.googleusercontent.com/lIpQFd_pEFcvBIIMDUosKUVbT3bl1JFZ9F-nc2Tj6pqebAMLrOgq8a2Xe9c85-XOmvGYgQIwhroRmtBb=w544-h544-l90-rj"
+    )
+    assert metadata.date == None
+    assert metadata.disc_count == None
+    assert metadata.disc_number == None
+    assert metadata.duration == 219
+    assert metadata.explicit == False
+    assert metadata.genres == []
+    assert metadata.id == "dLohoBAnoTk"
+    assert metadata.is_song == True
+    assert metadata.name == "Gone Astray"
+    assert metadata.track_count == 10
+    assert metadata.track_number == 7
+    assert metadata.url == "https://music.youtube.com/watch?v=dLohoBAnoTk"
     assert metadata.year == 2023
 
 
@@ -57,7 +74,9 @@ def test_get_track_error_if_wrong_url():
     client = YTMusicMetadataClient()
 
     try:
-        client.get_track("https://music.youtube.com/watch?v=dLohoBAnoTl&feature=share")
+        client.get_track(
+            "https://music.youtube.com/watch?v=dLohoBAnoTl&feature=share"
+        )  # this url does not exist
         assert False
     except MetadataClientError as ex:
         assert True

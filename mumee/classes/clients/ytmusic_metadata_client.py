@@ -76,6 +76,11 @@ class YTMusicMetadataClient:
         else:
             album_info = None
 
+        thumbnails = [
+            (tn["width"] * tn["height"], tn["url"])
+            for tn in (album_info if album_info else track_info)["thumbnails"]
+        ]
+
         result = SongMetadata(
             name=track_info["title"],
             artists=[artist["name"] for artist in track_info["artists"]],
@@ -98,6 +103,11 @@ class YTMusicMetadataClient:
             duration=track_info["duration_seconds"],
             date=None,
             year=int(album_info["year"]) if album_info is not None else None,
+            explicit=track_info["isExplicit"],
+            cover_url=max(thumbnails)[1],
+            is_song=track_info["resultType"] == "song",
+            id=track_info["videoId"],
+            url=f"https://{'music' if track_info['resultType'] == 'song' else 'www'}.youtube.com/watch?v={track_info['videoId']}",
         )
 
         return result
