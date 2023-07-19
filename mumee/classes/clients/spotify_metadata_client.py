@@ -67,6 +67,10 @@ class SpotifyMetadataClient:
         artist_names = [artist["name"] for artist in track_info["artists"]]
         album_info = self._client.album(track_info["album"]["id"]) or {}
 
+        thumbnails = [
+            (tn["width"] * tn["height"], tn["url"]) for tn in album_info["images"]
+        ]
+
         result = SongMetadata(
             name=track_info["name"],
             artists=artist_names,
@@ -78,10 +82,16 @@ class SpotifyMetadataClient:
             track_number=track_info["track_number"],
             track_count=album_info["total_tracks"],
             genres=album_info["genres"],
-            duration=track_info["duration_ms"] / 1000,
+            duration=int(track_info["duration_ms"] / 1000),
             date=album_info["release_date"],
             year=int(album_info["release_date"][:4]),
+            is_song=True,
+            id=track_info["id"],
+            explicit=track_info["explicit"],
+            cover_url=max(thumbnails)[1],
+            url=track_info["external_urls"]["spotify"],
         )
+
         return result
 
     def get_playlist(self, url: str) -> PlaylistMetadata:

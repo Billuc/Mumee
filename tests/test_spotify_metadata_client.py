@@ -20,9 +20,26 @@ def test_get_track():
     )
 
     assert metadata is not None
-    assert metadata.artist == "Linkin Park"
-    assert metadata.name == "Faint"
+    assert metadata.album_artist == "Linkin Park"
     assert metadata.album_name == "Meteora (Bonus Edition)"
+    assert metadata.artist == "Linkin Park"
+    assert metadata.artists == ["Linkin Park"]
+    assert (
+        metadata.cover_url
+        == "https://i.scdn.co/image/ab67616d0000b27389a8fab8bf8cd2b77da1fd17"
+    )
+    assert metadata.date == "2003-03-24"
+    assert metadata.disc_count == 1
+    assert metadata.disc_number == 1
+    assert metadata.duration == 162
+    assert metadata.explicit == False
+    assert metadata.genres == []
+    assert metadata.id == "7AB0cUXnzuSlAnyHOqmrZr"
+    assert metadata.is_song == True
+    assert metadata.name == "Faint"
+    assert metadata.track_count == 16
+    assert metadata.track_number == 7
+    assert metadata.url == "https://open.spotify.com/track/7AB0cUXnzuSlAnyHOqmrZr"
     assert metadata.year == 2003
 
 

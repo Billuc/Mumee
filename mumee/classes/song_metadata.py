@@ -19,3 +19,8 @@ class SongMetadata:
     date: Optional[str]
     track_number: Optional[int]
     track_count: Optional[int]
+    explicit: Optional[bool]
+    cover_url: Optional[str]
+    is_song: bool
+    id: str
+    url: str
