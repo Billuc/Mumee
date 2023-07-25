@@ -1,9 +1,10 @@
-from typing import Optional, Union
+from typing import List, Optional, Union
 from taipan_di import ServiceCollection
 
-from mumee.classes import SongMetadata, PlaylistMetadata, SpotifyOptions
+from mumee.classes import SpotifyOptions
+from mumee.data import SongMetadata, PlaylistMetadata, SearchMetadataCommand, MetadataClientEnum
 from mumee.di import add_mumee
-from mumee.interfaces import BaseMetadataClient
+from mumee.interfaces import BaseMetadataClient, BaseMetadataExplorer
 from mumee.errors import MetadataClientError
 
 
@@ -15,12 +16,23 @@ class SongMetadataClient:
         if spotify_options is not None:
             services.register(SpotifyOptions).as_singleton().with_instance(spotify_options)
 
-        self._client = services.build().resolve(BaseMetadataClient)
+        provider = services.build()
 
-    def search(self, url_or_query: str) -> Union[SongMetadata, PlaylistMetadata]:
-        result = self._client.exec(url_or_query)
+        self._fetcher = provider.resolve(BaseMetadataClient)
+        self._explorer = provider.resolve(BaseMetadataExplorer)
+
+    def fetch(self, url_or_query: str) -> Union[SongMetadata, PlaylistMetadata]:
+        result = self._fetcher.exec(url_or_query)
 
         if result is None:
             raise MetadataClientError(f"No result for query {url_or_query}")
 
         return result
+
+    def search(
+        self, query: str, limit: int, clients: List[MetadataClientEnum] = [MetadataClientEnum.ALL]
+    ) -> List[SongMetadata]:
+        command = SearchMetadataCommand(query, clients, limit)
+        results = self._explorer.exec(command)
+
+        return results or []

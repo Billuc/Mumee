@@ -21,10 +21,10 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAACAxzOuw6CMABA0X/pLAkpSNSNVyoUQQgKTgRKJQ0KpAWtGP9ddL3LPW9QEkKFKMa+
-        pR3YASu2b12ClRl2Lrs4sWbMJOduy6t17wd+TasJ1X074rtIZezpbQPxHmbPsw/1zC7hSRKGiJc4
-        mWlYU350yRWbGtpGZqgHcHRCzy9l2lSNgjZ29DhgKMAK/O/F+Broj0BLTvlSqRwYp6JgC0wzVPXz
-        BQAA//8DAKvyCNWuAAAA
+        H4sIAAAAAAACAxzOTQuCMByA8e+yc4ImmnVzlYamGKiQl+HLH1PbJpuZFn33rOtzeX5vlJclSEkG
+        3gFDO4QvtuizQ5xKbWizKtEodY6BKZ/1XLMIY9icojqGQum0OmGmUC09aZjLWjDM6W5gd+YjJukD
+        eFswjiuPhfq6tYljjTS04EXO161HbTdw99jXbr7COVqh/50Mcw8/AuQCxFJh6hsBkjQLTDdV9fMF
+        AAD//wMAW/v68K4AAAA=
     headers:
       Alt-Svc:
       - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
@@ -37,14 +37,14 @@ interactions:
       content-type:
       - application/json
       date:
-      - Thu, 15 Jun 2023 15:48:07 GMT
+      - Tue, 25 Jul 2023 17:01:00 GMT
       server:
       - envoy
       set-cookie:
-      - __Host-device_id=AQCZe4qZDqeSjPBpc_qiY5J4yU3M6mf3CbnfmYQ54j0EMN8InqBgPTQTqM-YxACnQAFBwcsPmn3pXXIV_2m6LJUw62Snacam2zs;Version=1;Path=/;Max-Age=2147483647;Secure;HttpOnly;SameSite=Lax
+      - __Host-device_id=AQAk47ZS4uizWh-kCz7OmBcteiFk6yb4SRCUt16Px6HMLZEJjjeSLx8mJiCv1b3uHBBH4bxLgGwKPrDL7u30Uxxu5hSImP8FXF8;Version=1;Path=/;Max-Age=2147483647;Secure;HttpOnly;SameSite=Lax
       - sp_tr=false;Version=1;Domain=accounts.spotify.com;Path=/;Secure;SameSite=Lax
       sp-trace-id:
-      - d8b21ec6b2b7eeba
+      - 9fa1b0d87d739d31
       strict-transport-security:
       - max-age=31536000
       vary:
@@ -64,7 +64,7 @@ interactions:
       Accept-Encoding:
       - gzip, deflate
       Authorization:
-      - Bearer BQClnRK-z2nEiYDQ36zcXrEkrb5oJLJdebuGdoktKmsTxQI4kg2KH2WwVJ24WCa2UxciGcIRDWA6BuXPEcfKA3G9OAN4L2tDNIJaxTgbg-G8COvMK2s
+      - Bearer BQArpZDTVs1tjZdU1mmFEM6swgygnPBBe7HPgTeb-k1gUn6r083UinGnje56xl5BGyovB_VueojbnoBdJnN32jA_F8vmN8ez_LY9JmAGMGCBK1hK-oo
       Connection:
       - keep-alive
       Content-Type:
@@ -103,7 +103,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Thu, 15 Jun 2023 15:48:07 GMT
+      - Tue, 25 Jul 2023 17:01:00 GMT
       server:
       - envoy
       strict-transport-security:
@@ -123,7 +123,7 @@ interactions:
       Accept-Encoding:
       - gzip, deflate
       Authorization:
-      - Bearer BQClnRK-z2nEiYDQ36zcXrEkrb5oJLJdebuGdoktKmsTxQI4kg2KH2WwVJ24WCa2UxciGcIRDWA6BuXPEcfKA3G9OAN4L2tDNIJaxTgbg-G8COvMK2s
+      - Bearer BQArpZDTVs1tjZdU1mmFEM6swgygnPBBe7HPgTeb-k1gUn6r083UinGnje56xl5BGyovB_VueojbnoBdJnN32jA_F8vmN8ez_LY9JmAGMGCBK1hK-oo
       Connection:
       - keep-alive
       Content-Type:
@@ -162,7 +162,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Thu, 15 Jun 2023 15:48:07 GMT
+      - Tue, 25 Jul 2023 17:01:00 GMT
       server:
       - envoy
       strict-transport-security:
@@ -182,7 +182,7 @@ interactions:
       Accept-Encoding:
       - gzip, deflate
       Authorization:
-      - Bearer BQClnRK-z2nEiYDQ36zcXrEkrb5oJLJdebuGdoktKmsTxQI4kg2KH2WwVJ24WCa2UxciGcIRDWA6BuXPEcfKA3G9OAN4L2tDNIJaxTgbg-G8COvMK2s
+      - Bearer BQArpZDTVs1tjZdU1mmFEM6swgygnPBBe7HPgTeb-k1gUn6r083UinGnje56xl5BGyovB_VueojbnoBdJnN32jA_F8vmN8ez_LY9JmAGMGCBK1hK-oo
       Connection:
       - keep-alive
       Content-Type:
@@ -221,7 +221,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Thu, 15 Jun 2023 15:48:08 GMT
+      - Tue, 25 Jul 2023 17:01:01 GMT
       server:
       - envoy
       strict-transport-security:
@@ -241,7 +241,7 @@ interactions:
       Accept-Encoding:
       - gzip, deflate
       Authorization:
-      - Bearer BQClnRK-z2nEiYDQ36zcXrEkrb5oJLJdebuGdoktKmsTxQI4kg2KH2WwVJ24WCa2UxciGcIRDWA6BuXPEcfKA3G9OAN4L2tDNIJaxTgbg-G8COvMK2s
+      - Bearer BQArpZDTVs1tjZdU1mmFEM6swgygnPBBe7HPgTeb-k1gUn6r083UinGnje56xl5BGyovB_VueojbnoBdJnN32jA_F8vmN8ez_LY9JmAGMGCBK1hK-oo
       Connection:
       - keep-alive
       Content-Type:
@@ -280,7 +280,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Thu, 15 Jun 2023 15:48:09 GMT
+      - Tue, 25 Jul 2023 17:01:02 GMT
       server:
       - envoy
       strict-transport-security:

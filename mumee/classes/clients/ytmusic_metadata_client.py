@@ -3,7 +3,7 @@ from ytmusicapi import YTMusic
 from rapidfuzz import fuzz
 from slugify import slugify
 
-from mumee.classes import SongMetadata, PlaylistMetadata
+from mumee.data import SongMetadata, PlaylistMetadata
 from mumee.errors import MetadataClientError
 
 __all__ = ["YTMusicMetadataClient"]
@@ -26,9 +26,11 @@ class YTMusicMetadataClient:
                 f"Couldn't get metadata associated with this URL: {url}"
             )
 
-        return self.search(
-            f"{track_info['videoDetails']['title']} - {track_info['videoDetails']['author']}"
+        track_data = self.search(
+            f"{track_info['videoDetails']['title']} - {track_info['videoDetails']['author']}",
+            1,
         )
+        return track_data[0]
 
     def get_playlist(self, url: str) -> PlaylistMetadata:
         if "music.youtube.com" not in url or "playlist?list" not in url:
@@ -49,28 +51,53 @@ class YTMusicMetadataClient:
             author=playlist_info["author"]["name"],
             tracks=[
                 self.search(
-                    f"{track['title']} - {', '.join([artist['name'] for artist in track['artists']])}"
-                )
+                    f"{track['title']} - {', '.join([artist['name'] for artist in track['artists']])}",
+                    1,
+                )[0]
                 for track in playlist_info["tracks"]
             ],
         )
         return result
 
-    def search(self, query: str) -> SongMetadata:
-        search_results = self._client.search(query, "songs")
+    def search(self, query: str, limit: int) -> List[SongMetadata]:
+        search_results = self._client.search(query, "songs", limit=limit)
 
         if search_results is None or len(search_results) == 0:
             raise MetadataClientError(f"No result found for '{query}'")
 
-        best_result = self._get_best_result(query, search_results)
+        best_results = self._get_best_results(query, search_results, limit)
 
-        if best_result[2] < 55:
+        if not best_results or best_results[0][2] < 55:
             raise MetadataClientError(
                 "Best match found isn't close enough to your query. "
-                f"Best match : {best_result[1]}, query: {query}"
+                f"Best match : {best_results[0][1]}, query: {query}"
             )
 
-        track_info = best_result[0]
+        results = [self._dict_to_song(track[0]) for track in best_results]
+        return results
+
+    def _get_best_results(
+        self, query: str, tracks_info: List[Dict[str, Any]], limit: int
+    ) -> List[Tuple[Dict[str, Any], str, float, bool]]:
+        track_infos: List[Tuple[Dict[str, Any], str, float, bool]] = []
+
+        for track in tracks_info:
+            track_name = track["title"]
+            track_artists = [artist["name"] for artist in track["artists"]]
+            track_query = f"{track_name} - {', '.join(track_artists)}"
+            track_has_album = (
+                track["album"] is not None and track["album"]["id"] is not None
+            )
+
+            score = fuzz.ratio(slugify(track_query), slugify(query))
+
+            track_infos.append((track, track_query, score, track_has_album))
+
+        track_infos = sorted(track_infos, key=lambda t: (t[2], t[3]), reverse=True)
+
+        return track_infos[:limit]
+
+    def _dict_to_song(self, track_info: Dict[str, Any]) -> SongMetadata:
         if track_info.get("album", {}).get("id") is not None:
             album_info = self._client.get_album(track_info["album"]["id"])
         else:
@@ -109,33 +136,4 @@ class YTMusicMetadataClient:
             id=track_info["videoId"],
             url=f"https://{'music' if track_info['resultType'] == 'song' else 'www'}.youtube.com/watch?v={track_info['videoId']}",
         )
-
         return result
-
-    def _get_best_result(
-        self, query: str, tracks_info: List[Dict[str, Any]]
-    ) -> Tuple[Dict[str, Any], str, float]:
-        best_score = 0
-        best_result = None
-        best_query = ""
-        has_album = False
-
-        for track in tracks_info:
-            track_name = track["title"]
-            track_artists = [artist["name"] for artist in track["artists"]]
-            track_query = f"{track_name} - {', '.join(track_artists)}"
-            track_has_album = (
-                track["album"] is not None and track["album"]["id"] is not None
-            )
-
-            score = fuzz.ratio(slugify(track_query), slugify(query))
-
-            if score > best_score or (
-                score == best_score and track_has_album and not has_album
-            ):
-                best_score = score
-                best_result = track
-                best_query = track_query
-                has_album = track_has_album
-
-        return best_result or {}, best_query, best_score
