@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "Mumee"
-version = "0.0.4"
+version = "0.0.5"
 description = "MUsic MEtadata Explorer"
 authors = ["Billuc <billuc@hotmail.fr>"]
 license = "MIT"

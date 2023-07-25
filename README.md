@@ -34,9 +34,9 @@ There are 2 ways to use this library : using the `SongMetadataClient` object or 
 
 ### Using SongMetadataClient
 
-The library exposes the `SongMetadataClient` class. This class has 1 methods : `search`.
+The library exposes the `SongMetadataClient` class. This class has 2 methods : `fetch` and `search`.
 
-This method fetches the metadata corresponding to the request you give it, whether it is an URL or a query. It returns the result as a `SongMetadata` object or a `PlaylistMetadata` object.
+The `fetch` method fetches the metadata corresponding to the request you give it, whether it is an URL or a query. It returns the result as a `SongMetadata` object or a `PlaylistMetadata` object.
 
 **Example :**
 
@@ -44,18 +44,33 @@ This method fetches the metadata corresponding to the request you give it, wheth
 from mumee import SongMetadataClient
 
 client = SongMetadataClient()
-result = client.search("in the end - linkin park")
+result = client.fetch("https://open.spotify.com/track/7AB0cUXnzuSlAnyHOqmrZr")
 
-title = result.title # In The End
+title = result.title # Faint
+artists = result.artists # ['Linkin Park']
+```
+
+The `search` method expects a query (e.g.: {title} - {artists}) and a limit corresponding to the number of results you want. It returns a list of `SongMetadata` objects that fit closest to the query that was given. This list is sorted by closest fit per client.
+
+**Example :**
+
+```python
+from mumee import SongMetadataClient
+
+client = SongMetadataClient()
+results = client.search("in the end - linkin park")
+
+title = results[0].title # In The End
+artists = results[0].artists # ['Linkin Park']
 ```
 
 ### Using DI
 
-The library also exposes a `BaseMetadataClient` interface and a `add_mumee` function for [Taipan-DI](https://github.com/Billuc/Taipan-DI).
+The library also exposes the `BaseMetadataClient` and `BaseMetadataExplorer` interfaces and a `add_mumee` function for [Taipan-DI](https://github.com/Billuc/Taipan-DI).
 
-In this function, the clients are registered as a Pipeline. All you need to do is to resolve the pipeline and execute it.
+In this function, the clients and explorers are registered as a Pipeline. All you need to do is to resolve the pipelines and execute it.
 
-**Example :**
+**Example 1 :**
 
 ```python
 from mumee import BaseMetadataClient, add_mumee
@@ -67,8 +82,24 @@ add_mumee(services)
 provider = services.build()
 client = provider.resolve(BaseMetadataClient)
 
-result = client.exec("in the end - linkin park")
-title = result.title # In The End
+result = client.exec("https://open.spotify.com/track/7AB0cUXnzuSlAnyHOqmrZr")
+title = result.title # Faint
+```
+
+**Example 2 :**
+
+```python
+from mumee import BaseMetadataExplorer, add_mumee
+from taipan_di import DependencyCollection
+
+services = DependencyCollection()
+add_mumee(services)
+
+provider = services.build()
+explorer = provider.resolve(BaseMetadataExplorer)
+
+results = explorer.exec("in the end - linkin park")
+title = results[0].title # In The End
 ```
 
 ## Inspirations
