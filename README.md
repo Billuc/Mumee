@@ -84,4 +84,5 @@ Here is a list of features I have in mind and will be working on :
 
 - Support for Amazon Music
 - More metadata in the SongMetadata class
-- Allow return of multiple results
+- Handle edge case in explorer_handler
+- Re-sort explorer results

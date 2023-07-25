@@ -139,10 +139,15 @@ def test_get_playlist_error_if_wrong_url():
 def test_search():
     options = SpotifyOptions()
     client = SpotifyMetadataClient(options)
+    limit = 3
 
-    metadata = client.search("Faint - Linkin Park")
+    metadatas = client.search("Faint - Linkin Park", limit)
 
-    assert metadata is not None
+    assert metadatas is not None
+    assert len(metadatas) == limit
+
+    metadata = metadatas[0]
+
     assert metadata.artist == "Linkin Park"
     assert metadata.name == "Faint"
     assert metadata.album_name == "Meteora"
@@ -154,7 +159,7 @@ def test_search_error_if_bad_results():
     client = SpotifyMetadataClient(options)
 
     try:
-        metadata = client.search("foo bar baz azerazrqrsrtxv")
+        metadata = client.search("foo bar baz azerazrqrsrtxv", 1)
         assert False
     except MetadataClientError as ex:
         assert True

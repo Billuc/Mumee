@@ -9,10 +9,10 @@ def test_init_client():
 
 
 @my_vcr.use_cassette
-def test_search_spotify_track():
+def test_fetch_spotify_track():
     client = SongMetadataClient()
 
-    metadata = client.search(
+    metadata = client.fetch(
         "https://open.spotify.com/track/7AB0cUXnzuSlAnyHOqmrZr?si=5cc9c24b381446f7"
     )
 
@@ -25,10 +25,10 @@ def test_search_spotify_track():
 
 
 @my_vcr.use_cassette
-def test_search_spotify_playlist():
+def test_fetch_spotify_playlist():
     client = SongMetadataClient()
 
-    metadata = client.search(
+    metadata = client.fetch(
         "https://open.spotify.com/playlist/37i9dQZF1DX8FwnYE6PRvL?si=a53b50c5637f420b"
     )
 
@@ -41,10 +41,10 @@ def test_search_spotify_playlist():
 
 
 @my_vcr.use_cassette
-def test_search_ytmusic_track():
+def test_fetch_ytmusic_track():
     client = SongMetadataClient()
 
-    metadata = client.search("https://music.youtube.com/watch?v=c6i88Y7gDl4&feature=share")
+    metadata = client.fetch("https://music.youtube.com/watch?v=c6i88Y7gDl4&feature=share")
 
     assert metadata is not None
     assert isinstance(metadata, SongMetadata)
@@ -55,10 +55,10 @@ def test_search_ytmusic_track():
 
 
 @my_vcr.use_cassette
-def test_search_ytmusic_playlist():
+def test_fetch_ytmusic_playlist():
     client = SongMetadataClient()
 
-    metadata = client.search(
+    metadata = client.fetch(
         "https://music.youtube.com/playlist?list=RDCLAK5uy_keb_mIiClglpMd5ycINvnTwCkoIu5Ce3k"
     )
 
@@ -71,10 +71,10 @@ def test_search_ytmusic_playlist():
 
 
 @my_vcr.use_cassette
-def test_search():
+def test_fetch_with_query():
     client = SongMetadataClient()
 
-    metadata = client.search("Faint - Linkin Park")
+    metadata = client.fetch("Faint - Linkin Park")
 
     assert metadata is not None
     assert isinstance(metadata, SongMetadata)
@@ -84,13 +84,29 @@ def test_search():
 
 
 @my_vcr.use_cassette
-def test_search_raise_exception_if_bad_request():
+def test_fetch_raise_exception_if_bad_request():
     client = SongMetadataClient()
 
     try:
-        metadata = client.search("foo bar baz azerazrqrsrtxv")
+        metadata = client.fetch("foo bar baz azerazrqrsrtxv")
         assert False
     except MetadataClientError as ex:
         assert True
     except:
         assert False
+
+
+@my_vcr.use_cassette
+def test_search():
+    client = SongMetadataClient()
+    limit = 10
+
+    metadatas = client.search("faint - linkin park", limit)
+
+    assert len(metadatas) >= limit
+
+    first_metadata = metadatas[0]
+
+    assert first_metadata.artist == "Linkin Park"
+    assert first_metadata.name == "Faint"
+    assert first_metadata.album_name == "Meteora 20th Anniversary Edition"

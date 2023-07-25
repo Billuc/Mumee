@@ -141,13 +141,18 @@ def test_get_playlist_error_if_wrong_url():
 @my_vcr.use_cassette
 def test_search():
     client = YTMusicMetadataClient()
+    limit = 3
 
-    metadata = client.search("Faint - Linkin Park")
+    metadatas = client.search("Faint - Linkin Park", limit)
 
-    assert metadata is not None
+    assert metadatas is not None
+    assert len(metadatas) == limit
+    
+    metadata = metadatas[0]
+    
     assert metadata.artist == "Linkin Park"
     assert metadata.name == "Faint"
-    assert metadata.album_name == "Meteora (Bonus Edition)"
+    assert metadata.album_name == "Meteora 20th Anniversary Edition"
 
 
 @my_vcr.use_cassette
@@ -155,7 +160,7 @@ def test_search_error_if_bad_results():
     client = YTMusicMetadataClient()
 
     try:
-        client.search("foo bar baz")
+        client.search("foo bar baz", 1)
         assert False
     except MetadataClientError as ex:
         assert True

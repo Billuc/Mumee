@@ -9,7 +9,8 @@ from spotipy import (
 from rapidfuzz import fuzz
 from slugify import slugify
 
-from mumee.classes import SongMetadata, SpotifyOptions, PlaylistMetadata
+from mumee.classes import SpotifyOptions
+from mumee.data import SongMetadata, PlaylistMetadata
 from mumee.errors import MetadataClientError
 
 __all__ = ["SpotifyMetadataClient"]
@@ -116,30 +117,32 @@ class SpotifyMetadataClient:
         )
         return result
 
-    def search(self, query: str) -> SongMetadata:
+    def search(self, query: str, limit: int) -> List[SongMetadata]:
         search_results = self._client.search(query)
 
         if search_results is None or len(search_results["tracks"]["items"]) == 0:
             raise MetadataClientError("No result found for '{query}'")
 
-        best_result = self._get_best_result(query, search_results["tracks"]["items"])
+        best_results = self._get_best_results(
+            query, search_results["tracks"]["items"], limit
+        )
 
-        if best_result[2] < 55:
+        if not best_results or best_results[0][2] < 55:
             raise MetadataClientError(
                 "Best match found isn't close enough to your query. "
-                f"Best match : {best_result[1]}, query: {query}"
+                f"Best match : {best_results[0][1]}, query: {query}"
             )
 
-        song_url = "http://open.spotify.com/track/" + best_result[0]
-        return self.get_track(song_url)
+        track_infos = [
+            self.get_track("http://open.spotify.com/track/" + track[0])
+            for track in best_results
+        ]
+        return track_infos
 
-    def _get_best_result(
-        self, query: str, tracks_info: List[Dict[str, Any]]
-    ) -> Tuple[str, str, float]:
-        best_score = 0
-        best_id = ""
-        best_query = ""
-        best_popularity = 0
+    def _get_best_results(
+        self, query: str, tracks_info: List[Dict[str, Any]], limit: int
+    ) -> List[Tuple[str, str, float, float]]:
+        results: List[Tuple[str, str, float, float]] = []
 
         for track in tracks_info:
             track_name = track["name"]
@@ -149,12 +152,7 @@ class SpotifyMetadataClient:
 
             score = fuzz.ratio(slugify(track_query), slugify(query))
 
-            if score > best_score or (
-                score == best_score and track_popularity > best_popularity
-            ):
-                best_score = score
-                best_id = track["id"]
-                best_query = track_query
-                best_popularity = track_popularity
+            results.append((track["id"], track_query, score, track_popularity))
 
-        return best_id, best_query, best_score
+        results = sorted(results, key=lambda t: (t[2], t[3]), reverse=True)
+        return results[:limit]
