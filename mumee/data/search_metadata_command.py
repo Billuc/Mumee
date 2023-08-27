@@ -10,4 +10,5 @@ __all__ = ["SearchMetadataCommand"]
 class SearchMetadataCommand:
     query: str
     clients: List[MetadataClientEnum] = field(default_factory=lambda: [MetadataClientEnum.ALL])
-    limit: int = 10
+    limit_per_client: int = 5
+    sorted: bool = True

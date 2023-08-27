@@ -2,7 +2,12 @@ from typing import List, Optional, Union
 from taipan_di import ServiceCollection
 
 from mumee.classes import SpotifyOptions
-from mumee.data import SongMetadata, PlaylistMetadata, SearchMetadataCommand, MetadataClientEnum
+from mumee.data import (
+    SongMetadata,
+    PlaylistMetadata,
+    SearchMetadataCommand,
+    MetadataClientEnum,
+)
 from mumee.di import add_mumee
 from mumee.interfaces import BaseMetadataClient, BaseMetadataExplorer
 from mumee.errors import MetadataClientError
@@ -30,9 +35,13 @@ class SongMetadataClient:
         return result
 
     def search(
-        self, query: str, limit: int, clients: List[MetadataClientEnum] = [MetadataClientEnum.ALL]
+        self,
+        query: str,
+        limit: int,
+        clients: List[MetadataClientEnum] = [MetadataClientEnum.ALL],
+        sorted: bool = True,
     ) -> List[SongMetadata]:
-        command = SearchMetadataCommand(query, clients, limit)
+        command = SearchMetadataCommand(query, clients, limit, sorted)
         results = self._explorer.exec(command)
 
         return results or []

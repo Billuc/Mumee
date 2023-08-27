@@ -141,7 +141,7 @@ def test_search():
     client = SpotifyMetadataClient(options)
     limit = 3
 
-    metadatas = client.search("Faint - Linkin Park", limit)
+    metadatas = client.search("Faint - Linkin Park", limit, True)
 
     assert metadatas is not None
     assert len(metadatas) == limit
@@ -159,7 +159,7 @@ def test_search_error_if_bad_results():
     client = SpotifyMetadataClient(options)
 
     try:
-        metadata = client.search("foo bar baz azerazrqrsrtxv", 1)
+        metadata = client.search("foo bar baz azerazrqrsrtxv", 1, True)
         assert False
     except MetadataClientError as ex:
         assert True

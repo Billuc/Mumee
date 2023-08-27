@@ -109,4 +109,4 @@ def test_search():
 
     assert first_metadata.artist == "Linkin Park"
     assert first_metadata.name == "Faint"
-    assert first_metadata.album_name == "Meteora 20th Anniversary Edition"
+    assert first_metadata.album_name == "Meteora (Bonus Edition)"

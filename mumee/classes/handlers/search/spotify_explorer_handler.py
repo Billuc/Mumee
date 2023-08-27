@@ -25,13 +25,8 @@ class SpotifyExplorerHandler(BaseMetadataExplorer):
 
         previous_results = next(request) or []
 
-        number_of_clients = (
-            len(MetadataClientEnum) - 1
-            if MetadataClientEnum.ALL in request.clients
-            else len(request.clients)
+        spotify_results = self._client.search(
+            request.query, request.limit_per_client, request.sorted
         )
-        client_limit = int(request.limit / number_of_clients) # TODO : edge case when limit < number of clients
-
-        spotify_results = self._client.search(request.query, client_limit)
 
         return [*previous_results, *spotify_results]

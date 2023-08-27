@@ -29,6 +29,7 @@ class YTMusicMetadataClient:
         track_data = self.search(
             f"{track_info['videoDetails']['title']} - {track_info['videoDetails']['author']}",
             1,
+            True,
         )
         return track_data[0]
 
@@ -53,28 +54,34 @@ class YTMusicMetadataClient:
                 self.search(
                     f"{track['title']} - {', '.join([artist['name'] for artist in track['artists']])}",
                     1,
+                    True,
                 )[0]
                 for track in playlist_info["tracks"]
             ],
         )
         return result
 
-    def search(self, query: str, limit: int) -> List[SongMetadata]:
+    def search(self, query: str, limit: int, sorted: bool) -> List[SongMetadata]:
         search_results = self._client.search(query, "songs", limit=limit)
 
         if search_results is None or len(search_results) == 0:
             raise MetadataClientError(f"No result found for '{query}'")
 
-        best_results = self._get_best_results(query, search_results, limit)
+        if sorted:
+            best_results = self._get_best_results(query, search_results, limit)
 
-        if not best_results or best_results[0][2] < 55:
-            raise MetadataClientError(
-                "Best match found isn't close enough to your query. "
-                f"Best match : {best_results[0][1]}, query: {query}"
-            )
+            if not best_results or best_results[0][2] < 55:
+                raise MetadataClientError(
+                    "Best match found isn't close enough to your query. "
+                    f"Best match : {best_results[0][1]}, query: {query}"
+                )
 
-        results = [self._dict_to_song(track[0]) for track in best_results]
-        return results
+            results = list(map(lambda r: r[0], best_results))
+        else:
+            results = search_results
+
+        track_infos = [self._dict_to_song(track) for track in results]
+        return track_infos
 
     def _get_best_results(
         self, query: str, tracks_info: List[Dict[str, Any]], limit: int

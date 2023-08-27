@@ -19,6 +19,6 @@ class SpotifySearchHandler(BaseMetadataClient):
         self, request: str, next: Callable[[str], Union[SongMetadata, PlaylistMetadata]]
     ) -> Union[SongMetadata, PlaylistMetadata]:
         try:
-            return self._client.search(request, 1)[0]
+            return self._client.search(request, 1, True)[0]
         except:
             return next(request)
