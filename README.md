@@ -98,7 +98,8 @@ add_mumee(services)
 provider = services.build()
 explorer = provider.resolve(BaseMetadataExplorer)
 
-results = explorer.exec("in the end - linkin park")
+command = SearchMetadataCommand("in the end - linkin park")
+results = explorer.exec(command)
 title = results[0].title # In The End
 ```
 
@@ -115,5 +116,4 @@ Here is a list of features I have in mind and will be working on :
 
 - Support for Amazon Music
 - More metadata in the SongMetadata class
-- Handle edge case in explorer_handler
 - Re-sort explorer results

@@ -24,14 +24,9 @@ class YTMusicExplorerHandler(BaseMetadataExplorer):
             return next(request)
 
         previous_results = next(request) or []
-        
-        number_of_clients = (
-            len(MetadataClientEnum) - 1
-            if MetadataClientEnum.ALL in request.clients
-            else len(request.clients)
-        )
-        client_limit = int(request.limit / number_of_clients) # TODO : edge case when limit < number of clients
 
-        ytmusic_results = self._client.search(request.query, client_limit)
+        ytmusic_results = self._client.search(
+            request.query, request.limit_per_client, request.sorted
+        )
 
         return [*previous_results, *ytmusic_results]

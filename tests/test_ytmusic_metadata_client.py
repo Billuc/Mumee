@@ -143,16 +143,16 @@ def test_search():
     client = YTMusicMetadataClient()
     limit = 3
 
-    metadatas = client.search("Faint - Linkin Park", limit)
+    metadatas = client.search("Faint - Linkin Park", limit, True)
 
     assert metadatas is not None
     assert len(metadatas) == limit
-    
+
     metadata = metadatas[0]
-    
+
     assert metadata.artist == "Linkin Park"
     assert metadata.name == "Faint"
-    assert metadata.album_name == "Meteora 20th Anniversary Edition"
+    assert metadata.album_name == "Meteora (Bonus Edition)"
 
 
 @my_vcr.use_cassette
@@ -160,7 +160,7 @@ def test_search_error_if_bad_results():
     client = YTMusicMetadataClient()
 
     try:
-        client.search("foo bar baz", 1)
+        client.search("foo bar baz", 1, True)
         assert False
     except MetadataClientError as ex:
         assert True

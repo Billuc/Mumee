@@ -117,25 +117,29 @@ class SpotifyMetadataClient:
         )
         return result
 
-    def search(self, query: str, limit: int) -> List[SongMetadata]:
+    def search(self, query: str, limit: int, sorted: bool) -> List[SongMetadata]:
         search_results = self._client.search(query)
 
         if search_results is None or len(search_results["tracks"]["items"]) == 0:
             raise MetadataClientError("No result found for '{query}'")
 
-        best_results = self._get_best_results(
-            query, search_results["tracks"]["items"], limit
-        )
-
-        if not best_results or best_results[0][2] < 55:
-            raise MetadataClientError(
-                "Best match found isn't close enough to your query. "
-                f"Best match : {best_results[0][1]}, query: {query}"
+        if sorted:
+            best_results = self._get_best_results(
+                query, search_results["tracks"]["items"], limit
             )
 
+            if not best_results or best_results[0][2] < 55:
+                raise MetadataClientError(
+                    "Best match found isn't close enough to your query. "
+                    f"Best match : {best_results[0][1]}, query: {query}"
+                )
+
+            results = list(map(lambda r: r[0], best_results))
+        else:
+            results = list(map(lambda r: r["id"], search_results))[:limit]
+
         track_infos = [
-            self.get_track("http://open.spotify.com/track/" + track[0])
-            for track in best_results
+            self.get_track("http://open.spotify.com/track/" + track) for track in results
         ]
         return track_infos
 
