@@ -166,3 +166,29 @@ def test_search_error_if_bad_results():
         assert True
     except:
         assert False
+
+
+@my_vcr.use_cassette
+def test_search_no_sorted():
+    client = YTMusicMetadataClient()
+
+    metadata = client.search("from ashes to new", 10, False)
+    assert len(metadata) == 10
+
+
+@my_vcr.use_cassette
+def test_search_with_high_limit():
+    client = YTMusicMetadataClient()
+    limit = 30
+
+    metadata = client.search("from ashes to new", limit, True)
+    assert len(metadata) == limit
+
+
+@my_vcr.use_cassette
+def test_search_with_low_limit():
+    client = YTMusicMetadataClient()
+    limit = 2
+
+    metadata = client.search("from ashes to new", limit, False)
+    assert len(metadata) == limit
