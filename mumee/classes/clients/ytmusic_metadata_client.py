@@ -78,7 +78,7 @@ class YTMusicMetadataClient:
 
             results = list(map(lambda r: r[0], best_results))
         else:
-            results = search_results
+            results = search_results[:limit]
 
         track_infos = [self._dict_to_song(track) for track in results]
         return track_infos
